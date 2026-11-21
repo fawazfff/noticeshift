@@ -35,7 +35,19 @@ export default function Dashboard() {
           <input id="url" className="input" type="url" required placeholder="https://store.com/product" value={url} onChange={e=>setUrl(e.target.value)}/>
           <label className="field-label">What matters on this page?</label>
           <div className="categories">{categories.map(c=>{const Icon=c.icon;return <button type="button" key={c.id} className={"category "+(category===c.id?"active":"")} onClick={()=>setCategory(c.id)}><div style={{display:"flex",alignItems:"center",gap:7,marginBottom:5,color:category===c.id?"var(--accent-dark)":"var(--muted)"}}><Icon size={14}/><span className="cat-title">{c.title}</span></div><div className="cat-desc">{c.desc}</div></button>})}</div>
-          <label className="field-label" htmlFor="interval">How often should we check?</label>\n          <select id="interval" className="input" value={intervalMinutes} onChange={e=>setIntervalMinutes(e.target.value)}>\n            <option value="15">Every 15 minutes · Fastest</option>\n            <option value="30">Every 30 minutes</option>\n            <option value="60">Every hour</option>\n            <option value="180">Every 3 hours</option>\n            <option value="360">Every 6 hours</option>\n            <option value="720">Every 12 hours</option>\n            <option value="1440">Every 24 hours</option>\n            <option value="10080">Every 7 days</option>\n          </select>\n          <p className="section-copy" style={{marginTop:7}}>The provider requires at least 15 minutes between checks. Faster checks use credits more quickly.</p>\n          <button className="button button-primary full" type="submit" disabled={loading}>{loading?<><LoaderCircle size={15} className="spin"/> Adding your page...</>:<><ScanEye size={15}/> Start watching <ArrowRight size={14}/></>}</button>
+          <label className="field-label" htmlFor="interval">How often should we check?</label>
+          <select id="interval" className="input" value={intervalMinutes} onChange={e=>setIntervalMinutes(e.target.value)}>
+            <option value="15">Every 15 minutes · Fastest</option>
+            <option value="30">Every 30 minutes</option>
+            <option value="60">Every hour</option>
+            <option value="180">Every 3 hours</option>
+            <option value="360">Every 6 hours</option>
+            <option value="720">Every 12 hours</option>
+            <option value="1440">Every 24 hours</option>
+            <option value="10080">Every 7 days</option>
+          </select>
+          <p className="section-copy" style={{marginTop:7}}>The provider requires at least 15 minutes between checks. Faster checks use credits more quickly.</p>
+          <button className="button button-primary full" type="submit" disabled={loading}>{loading?<><LoaderCircle size={15} className="spin"/> Adding your page...</>:<><ScanEye size={15}/> Start watching <ArrowRight size={14}/></>}</button>
         </form>
         {error&&<div className="callout" role="alert">{error}</div>}{message&&<div className="callout">{message}</div>}
       </section>
