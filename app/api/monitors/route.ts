@@ -51,3 +51,36 @@ export async function POST(request: NextRequest) {
   const data = await response.json();
   return NextResponse.json(data, { status: response.status });
 }
+
+export async function DELETE() {
+  const key = apiKey();
+  if (!key) return NextResponse.json({ error: "ANAKIN_API_KEY is not configured." }, { status: 500 });
+
+  const listResponse = await fetch(`${API}/monitors`, {
+    headers: { "X-API-Key": key },
+    cache: "no-store",
+  });
+  const listData = await listResponse.json();
+  if (!listResponse.ok) return NextResponse.json(listData, { status: listResponse.status });
+
+  const monitors = Array.isArray(listData)
+    ? listData
+    : (listData.monitors || listData.data?.monitors || []);
+
+  const results = await Promise.all(
+    monitors.map(async (monitor: { id?: string }) => {
+      if (!monitor.id) return { success: false, error: "Monitor ID missing." };
+      const response = await fetch(`${API}/monitors/${encodeURIComponent(monitor.id)}`, {
+        method: "DELETE",
+        headers: { "X-API-Key": key },
+      });
+      return { success: response.ok, status: response.status };
+    })
+  );
+
+  const failed = results.filter((result) => !result.success);
+  return NextResponse.json(
+    { deleted: results.length - failed.length, failed: failed.length },
+    { status: failed.length ? 207 : 200 }
+  );
+}
