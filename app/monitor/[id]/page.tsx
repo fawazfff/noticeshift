@@ -59,7 +59,7 @@ export default function MonitorDetail() {
   }, [params.id]);
 
   const refresh = () => { void load(); void loadChanges(); };
-  useEffect(() => { if (params.id) refresh(); }, [params.id]);
+  useEffect(() => { if (params.id) { void load(); void loadChanges(); } }, [params.id, load, loadChanges]);
 
   const url = data?.url || data?.targetUrl || data?.websiteUrl;
 
