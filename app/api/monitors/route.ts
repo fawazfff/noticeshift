@@ -23,7 +23,11 @@ export async function POST(request: NextRequest) {
 
   const body = await request.json();
   const url = String(body.url || "").trim();
-  const category = String(body.category || "announcements");\n  const intervalMinutes = Number(body.intervalMinutes ?? 15);\n  if (!Number.isInteger(intervalMinutes) || intervalMinutes < 15 || intervalMinutes > 10080) {\n    return NextResponse.json({ error: "Choose a check interval between 15 minutes and 7 days." }, { status: 400 });\n  }
+  const category = String(body.category || "announcements");
+  const intervalMinutes = Number(body.intervalMinutes ?? 15);
+  if (!Number.isInteger(intervalMinutes) || intervalMinutes < 15 || intervalMinutes > 10080) {
+    return NextResponse.json({ error: "Choose a check interval between 15 minutes and 7 days." }, { status: 400 });
+  }
   if (!/^https?:\/\//i.test(url)) {
     return NextResponse.json({ error: "Enter a valid webpage URL starting with https://" }, { status: 400 });
   }
