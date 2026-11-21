@@ -57,3 +57,12 @@ Anakin's Website Monitoring API requires a minimum interval of 15 minutes. The F
 - Dedicated Overview, Watchlist, Change Insights and Settings routes
 
 Change history is displayed when the monitoring API returns recorded snapshots or detected changes. The interface does not fabricate change records.
+
+
+## Demo architecture
+
+- The public product introduction lives at `/`.
+- The monitoring workspace lives at `/app`; watchlist, insights, settings and individual monitor pages are separate routes.
+- Monitoring records are created and retrieved through the Anakin API using the server-only `ANAKIN_API_KEY` environment variable.
+- This MVP currently uses the connected Anakin monitoring workspace as its persistence layer. It does not yet provide individual accounts, private user workspaces or a separate application database. Avoid adding sensitive or personal URLs to a shared demo.
+- The landing page includes a static product preview for presentation. Its example rows are illustrative and are not live monitoring results.
