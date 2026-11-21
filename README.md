@@ -6,27 +6,37 @@ NoticeShift helps students, small businesses and everyday consumers keep track o
 
 Choose what matters to you:
 - **Prices & products:** price changes, discounts and availability
-- **Opportunities:** scholarships, internships, grants and deadlines
+- **Opportunities:** scholarships, grants and deadlines
 - **Announcements:** school notices, policies and requirements
 - **Business information:** supplier catalogues, prices and product availability
 
-NoticeShift uses the Anakin Website Monitoring API for scheduled checks, page snapshots, change detection and AI summaries.
+NoticeShift uses the Anakin Website Monitoring API for scheduled checks, page snapshots and change detection.
 
 ## Run locally
 
 1. Install Node.js 20 or later.
 2. Clone this repository and run `npm install`.
-3. Copy `.env.example` to `.env.local`.
-4. Add your Anakin API key to `.env.local`:
+3. Create `.env.local` and add your Anakin API key:
 
    ```env
    ANAKIN_API_KEY=your_actual_key
    ```
 
-5. Start the app with `npm run dev`.
-6. Open http://localhost:3000.
+4. Start the app with `npm run dev`.
+5. Open http://localhost:3000.
 
 Keep the API key on the server. Never add it to frontend code or commit `.env.local`.
+
+## Deploy on Netlify
+
+1. Push this repository to GitHub.
+2. In Netlify, choose **Add new site → Import an existing project**.
+3. Connect GitHub and select `fawazfff/noticeshift`.
+4. Netlify should detect Next.js. Use `npm run build` as the build command. The current Next.js adapter handles App Router pages and API route handlers.
+5. In **Site configuration → Environment variables**, add `ANAKIN_API_KEY` with your Anakin key. Keep it private.
+6. Deploy the site. If you add or change the environment variable after the first deploy, trigger a new deploy.
+
+Do not add a static SPA catch-all redirect. NoticeShift uses Next.js server routes for the monitoring API.
 
 ## Monitoring limits
 
@@ -34,10 +44,16 @@ Anakin's Website Monitoring API requires a minimum interval of 15 minutes. The F
 
 ## Built with
 
-- Next.js and TypeScript
+- Next.js App Router and TypeScript
 - Anakin Website Monitoring API
 - Lucide icons
+- Netlify for hosting
 
-## Status
+## Current MVP scope
 
-Early hackathon MVP. The first version supports creating and listing monitors. Change history and richer category-specific comparisons are planned.
+- Add public webpages to a monitoring list
+- Group monitoring intent by prices, opportunities, announcements and business information
+- View the watchlist and individual monitor details
+- Dedicated Overview, Watchlist, Change Insights and Settings routes
+
+Change history is displayed when the monitoring API returns recorded snapshots or detected changes. The interface does not fabricate change records.
