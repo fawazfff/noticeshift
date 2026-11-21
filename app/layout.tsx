@@ -3,8 +3,8 @@ import "./globals.css";
 import { AppShell } from "./components/app-shell";
 
 export const metadata: Metadata = {
-  title: { default: "NoticeShift — Know what changed", template: "%s · NoticeShift" },
-  description: "Track the changes that matter across prices, opportunities, announcements and business information.",
+  title: { default: "NoticeShift — Know what matters", template: "%s · NoticeShift" },
+  description: "NoticeShift watches public webpages for meaningful changes in prices, opportunities, announcements and business information.",
   applicationName: "NoticeShift",
   icons: { icon: "/icon.svg", shortcut: "/icon.svg" },
   themeColor: "#f7f7f2",
